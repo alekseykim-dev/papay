@@ -7,9 +7,9 @@ const app = express();
 const router = require('./router');
 
 
-// MongoDB call
-const db = require('./server').db()
-const mongodb = require('mongodb')
+// // MongoDB call
+// const db = require('./server').db()
+// const mongodb = require('mongodb')
 
 
 // 1. Kirish code
@@ -29,3 +29,7 @@ app.use('/', router);
 
 
 module.exports = app;
+
+
+// use for app object
+//get post for express rest api
