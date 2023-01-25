@@ -18,6 +18,17 @@ app.use(express.json());    // json object form(web server format)
 app.use(express.urlencoded({extended: true})); // recieves html requests// if don't write, express will ignore html form requests 
 
 // 2: Session code
+// app.use(
+//     session({
+//         secret: process.env.SESSION_SECRET,
+//         cookie: {
+//             maxAge: 1000 * 60 * 30, // for 30 minutes
+//         },
+//         store: store,
+//         resave: true,
+//         saveUninitialized: true,
+//     })
+// );
 
 // 3. bssr. Views code
 app.set('views', 'views');      // difference?
@@ -25,8 +36,8 @@ app.set('view engine', 'ejs');
 
 
 // 4. Routing code
-app.use('/', router);
-
+// app.use("/resto", router_bssr) // traditional
+app.use('/', router);         //front  // react // rest api
 
 module.exports = app;
 

@@ -1,19 +1,27 @@
 const mongoose = require('mongoose');
 
+const {
+    member_type_enums,
+    member_status_enums,
+    ordernary_enums,
+  } = require("../lib/config");
+  
 const memberSchema = new mongoose.Schema({
     mb_nick: {
         type: String,
         required: true,
-        index: {unique: true, sparse: true} //not to be dublicated
+        index: {unique: true, sparse: true}, //not to be dublicated
     },
     mb_phone: {
         type: String,
-        requires: true,
+        required: true,
+        index: {unique: true, sparse: true}, //not to be dublicated
+
     },
     mb_password: {
         type: String,
         required: true,
-        select: false // won't return the password by default
+        select: false, // won't return the password by default
     },
     mb_type: {
         type: String,
@@ -39,7 +47,7 @@ const memberSchema = new mongoose.Schema({
     },
     mb_description: {
         type: String,
-        required: false
+        required: false,
     },
     mb_image: {
         type: String,
@@ -79,8 +87,11 @@ const memberSchema = new mongoose.Schema({
         required: false,
         default: 0
     },
-    {timestamps: true}
+   },
+    {timestamps: true} 
 
-});
+);  
 
 module.exports = mongoose.model("Member", memberSchema);
+
+
