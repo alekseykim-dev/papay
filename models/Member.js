@@ -6,3 +6,5 @@ class Member {
 
 
 module.exports = Member;
+
+// member service model
