@@ -80,5 +80,13 @@ restaurantController.logout = (req, res) => {
   res.send("logout sahifadasiz");
 };
 
+restaurantController.checkSessions = (req, res) => {
+  if(req.session?.member) {
+    res.json({state: 'Succeeded', data: req.session.member})
+  } else {
+    res.json({state: 'Failed', message: 'You are not authenticated'})
+  }
+};
+
 // get fetches data
 // post submits data
