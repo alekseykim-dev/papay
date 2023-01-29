@@ -5,6 +5,10 @@ const router = express.Router();    // why?
 const memberController = require('./controllers/memberController')
 
 
+/*********************************
+ *         REST API REACT        *
+ *********************************/
+
 // memberga dahldor // faqat get request in url
 // router.get('/', memberController.home);
 router.post('/signup', memberController.signup);
