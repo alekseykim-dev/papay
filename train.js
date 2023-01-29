@@ -1,4 +1,3 @@
-
 // K-TASK: Footbool jamoasini ochkosini hisoblash
 // Argumentlar: wins, draws, losses
 
@@ -9,10 +8,10 @@
 
 // Masalan: FootBallPoints(3,4,2) return qilish kerak 13
 
-function point (wins, draws, losses) {
-    const win = wins * 3;
-    const draw = draws * 1;
-    const loss = losses * 0;
-    return win + draw + loss
-  }
-  console.log(point(3, 4, 2));
+function point(wins, draws, losses) {
+  const win = wins * 3;
+  const draw = draws * 1;
+  const loss = losses * 0;
+  return win + draw + loss;
+}
+console.log(point(3, 4, 2));

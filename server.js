@@ -1,11 +1,10 @@
-
-const dotenv = require('dotenv')
+const dotenv = require("dotenv");
 dotenv.config();
 
 const http = require("http");
 const mongoose = require("mongoose");
 
-mongoose.set('strictQuery', true);
+mongoose.set("strictQuery", true);
 const connectionString = process.env.MONGO_URL;
 // mongoose.set('strictQuery', true);
 mongoose.connect(
