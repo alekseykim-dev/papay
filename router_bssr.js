@@ -2,6 +2,7 @@ const express = require("express");
 const router_bssr = express.Router(); // why?
 const restaurantController = require("./controllers/restaurantController");
 const productController = require("./controllers/productController");
+const { uploadPoductImage } = require("./utils/upload-multer");
 
 /*********************************
  *             BSSR EJS          *
@@ -20,6 +21,7 @@ router_bssr.get("/products/menu", restaurantController.getMyRestaurantData);
 router_bssr.post(
   "/products/create",
   restaurantController.validateAuthRestaurant,
+  uploadPoductImage.single('product_immage'),
   productController.addNewProduct
 );
 router_bssr.post("products/edit/:id", productController.updateChosenProduct);
@@ -33,3 +35,4 @@ module.exports = router_bssr;
 
 
 // uploads pics through controller
+// UUID is a safety measure aainst parse requests  

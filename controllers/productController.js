@@ -12,8 +12,9 @@ productController.getAllProducts = async (req, res) => {
 productController.addNewProduct = async (req, res) => {
     try {
       console.log("POST: cont/addNewProduct");
-      console.log(req.member);  // postman sends nothing because we are not requesting JSON obj
-
+    //   console.log(req.member);  // returns console with data
+    
+      res.send('ok') //if not write, postman sends nothing because we are not requesting JSON obj
       // TODO: product creation develop
     } catch (err) {
       console.log(`ERROR cont/addNewProduct, ${err.message}`);
