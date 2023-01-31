@@ -1,6 +1,7 @@
 const express = require("express");
 const router_bssr = express.Router(); // why?
 const restaurantController = require("./controllers/restaurantController");
+const productController = require("./controllers/productController");
 
 /*********************************
  *             BSSR EJS          *
@@ -16,8 +17,12 @@ router_bssr.get("/logout", restaurantController.logout);
 router_bssr.get("/check-me", restaurantController.checkSessions);
 
 router_bssr.get("/products/menu", restaurantController.getMyRestaurantData);
-
-
+router_bssr.post(
+  "/products/create",
+  restaurantController.validateAuthRestaurant,
+  productController.addNewProduct
+);
+router_bssr.post("products/edit/:id", productController.updateChosenProduct);
 
 module.exports = router_bssr;
 
@@ -25,3 +30,6 @@ module.exports = router_bssr;
 // 2. admin
 // 3. delivery
 // 4. restaurants
+
+
+// uploads pics through controller
