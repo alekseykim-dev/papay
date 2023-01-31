@@ -2,7 +2,9 @@ const express = require("express");
 const router_bssr = express.Router(); // why?
 const restaurantController = require("./controllers/restaurantController");
 const productController = require("./controllers/productController");
-const { uploadPoductImage } = require("./utils/upload-multer");
+// const { uploadPoductImage } = require("./utils/upload-multer");  if manually img uploading
+const uploader_product = require("./utils/upload-multer")('products'); //address of the folder in uploads
+
 
 /*********************************
  *             BSSR EJS          *
@@ -21,7 +23,7 @@ router_bssr.get("/products/menu", restaurantController.getMyRestaurantData);
 router_bssr.post(
   "/products/create",
   restaurantController.validateAuthRestaurant,
-  uploadPoductImage.single('product_immage'),
+  uploader_product.array('product_images', 5),
   productController.addNewProduct
 );
 router_bssr.post("products/edit/:id", productController.updateChosenProduct);
