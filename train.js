@@ -75,3 +75,15 @@ console.log(calculate("20/2"));
 
 
 
+// const str = ['apple, mango, orange']
+// // const words = str.split(' ')
+// // console.log(words)
+
+// // const spl = words.slice(1, 2)
+// // console.log(spl)
+
+// console.log(str)
+// str.splice(1, 0, 'banana')
+// console.log(str)
+
+

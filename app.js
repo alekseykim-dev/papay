@@ -1,4 +1,4 @@
-console.log("Web Serverni Boshlash");
+console.log("Building web server");
 
 const { SlowBuffer } = require("buffer");
 const express = require("express");
