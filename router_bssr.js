@@ -3,7 +3,7 @@ const router_bssr = express.Router(); // why?
 const restaurantController = require("./controllers/restaurantController");
 const productController = require("./controllers/productController");
 // const { uploadPoductImage } = require("./utils/upload-multer");  if manually img uploading
-const uploader_product = require("./utils/upload-multer")('products'); //address of the folder in uploads
+const uploader_product = require("./utils/upload-multer")('products'); //address of the folder in uploads why not(../) ?
 
 
 /*********************************
@@ -26,7 +26,7 @@ router_bssr.post(
   uploader_product.array('product_images', 5),
   productController.addNewProduct
 );
-router_bssr.post("products/edit/:id", productController.updateChosenProduct);
+router_bssr.post("/products/edit/:id", productController.updateChosenProduct); // no slash is okay?
 
 module.exports = router_bssr;
 

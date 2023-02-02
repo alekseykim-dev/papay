@@ -1,5 +1,6 @@
 let productController = module.exports;
 
+// requests go to router_BSSR
 productController.getAllProducts = async (req, res) => {
   try {
     console.log("GET: cont/getAllProducts");
