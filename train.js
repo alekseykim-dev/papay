@@ -18,10 +18,7 @@ const { group } = require("mongodb/lib/operations/collection_ops");
 // }
 // console.log(point(3, 4, 2));
 
-
-
-
-
+//////////////////////////////////////////////////////////////
 
 
 
@@ -68,15 +65,6 @@ const { group } = require("mongodb/lib/operations/collection_ops");
 // console.log(calculate("10-1"));
 // console.log(calculate("20/2"));
 
-
-
-
-
-
-
-
-
-
 // const str = ['apple, mango, orange']
 // // const words = str.split(' ')
 // // console.log(words)
@@ -88,12 +76,14 @@ const { group } = require("mongodb/lib/operations/collection_ops");
 // str.splice(1, 0, 'banana')
 // console.log(str)
 
+//////////////////////////////////////////////////////////////
+
 
 
 
 // ...M-Task: shunday Member class tuzing, uning bir private counts nomli state bolsin, hamda bu classni 3ta methodlari bolsin, ular addMember, removeMember, inform.
 
-// 📩 New message from group : 
+// 📩 New message from group :
 
 // 📌  Masalan: member.addMember(5) hech qanday log chiqmasin, member.removeMember(2) bunda ham log kerakmas va member.inform() bizga memberlar soni 3ta chiqarsin.
 
@@ -107,17 +97,17 @@ class Member {
   removeMember(num) {
     this.private_counts -= num;
   }
-  inform(){
+  inform() {
     console.log(`Current member count: ${this.private_counts}`);
   }
 }
 
 const member = new Member();
-member.addMember(5)
-member.inform()
-member.removeMember(2)
-member.inform()
-member.addMember(10)
+member.addMember(5);
 member.inform();
-member.removeMember(1)
-member.inform()
+member.removeMember(2);
+member.inform();
+member.addMember(10);
+member.inform();
+member.removeMember(1);
+member.inform();

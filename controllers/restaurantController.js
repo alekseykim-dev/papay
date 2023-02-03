@@ -77,10 +77,10 @@ restaurantController.logout = (req, res) => {
   res.send("logout sahifadasiz");
 };
 
-restaurantController.validateAuthRestaurant = () => {
-  console.log("GET cont.logout");
-  res.send("logout sahifasi");
-};
+// restaurantController.validateAuthRestaurant = () => {
+//   console.log("GET cont.logout");
+//   res.send("logout sahifasi");
+// };
 
 restaurantController.validateAuthRestaurant = (req, res, next) => {
   if (req.session?.member?.mb_type === "RESTAURANT") {
