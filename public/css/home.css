@@ -1,0 +1,46 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background: #252525;
+  }
+  
+  .group_name {
+    position: absolute;
+    z-index: 10000;
+    top: 1%;
+    color: #efefee;
+    font-size: xx-large;
+    font-family: monospace;
+  }
+  
+  /* ANIMATION */
+  .animation-wrapper {
+    width: 50%;
+    padding-bottom: 50%;
+  }
+  
+  .sphere-animation {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 580px;
+    height: 580px;
+    margin: -290px 0 0 -290px;
+  }
+  
+  .sphere path {
+    fill: url(#sphereGradient);
+    stroke-width: 1px;
+    stroke: rgba(80, 80, 80, 0.35);
+    backface-visibility: hidden;
+  }
+  
+  @media (min-width: 500px) {
+    .sphere path {
+      stroke-width: 0.4px;
+    }
+  }

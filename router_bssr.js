@@ -2,6 +2,7 @@ const express = require("express");
 const router_bssr = express.Router(); // why?
 const restaurantController = require("./controllers/restaurantController");
 const productController = require("./controllers/productController");
+const { router } = require("./app");
 // const { uploadPoductImage } = require("./utils/upload-multer");  if manually img uploading
 const uploader_product = require("./utils/upload-multer")("products"); //address of the folder in uploads why not(../) ?
 
@@ -9,9 +10,11 @@ const uploader_product = require("./utils/upload-multer")("products"); //address
  *             BSSR EJS          *
  *********************************/
 
+router_bssr.get("/", restaurantController.home)
+
 router_bssr
-  .get("/signup", restaurantController.getSignupMyRestaurant)
-  .post("/signup", restaurantController.signupProcess);
+  .get("/sign-up", restaurantController.getSignupMyRestaurant)
+  .post("/sign-up", restaurantController.signupProcess);
 router_bssr
   .get("/login", restaurantController.getLoginMyRestaurant)
   .post("/login", restaurantController.loginProcess);
