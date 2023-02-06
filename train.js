@@ -111,3 +111,110 @@ member.addMember(10);
 member.inform();
 member.removeMember(1);
 member.inform();
+
+
+
+
+
+
+
+
+
+
+
+
+let num = [4,1,2,3,1,0,5];
+
+function solution(num) {
+  let jumps = 0;
+  let maxReach = 0;
+  let steps = 0;
+  for (let i = 0; i < num.length; i++) {
+    if (maxReach < i) {
+      return -1;
+    }
+    if (i + num[i] > maxReach) {
+      maxReach = i + num[i];  //i = current position
+      jumps = steps + 1; 
+      steps = jumps;
+    }
+    if (i >= num.length - 1) {
+      return jumps; //returns the number of steps on the last stone
+    }
+  }
+  return -1;    //in none of the above works
+}
+console.log(solution(num));
+// console.log(result); // Output: 3
+
+
+// function solution(num) {
+//   let jumps = 0;
+//   let step = 0;
+//   for (let i = 0; i < num.length - 1; i++) {
+//     step = Math.max(step, i + num[i]);
+//     jumps++;
+//     if (i === step) {
+//       return -1;
+//     }
+//     if (i === step - num[i]) {
+//       step = i + num[i];
+//       jumps = 1;
+//     }
+//   }
+//   return jumps;
+// }
+
+
+
+
+
+let nums = [4,1,2,3,1,0,5];
+
+function can(nums) {
+  // Keep track of max distance traveled so far
+  let max = 0;
+  let maxR = 0
+  let jump = 0
+  for(let i=0;i<nums.length;i++){
+      if(maxR < i){
+        return -1
+      }
+      if(i + nums[i] > maxR) {
+        maxR = i + nums[i]
+        jump = max + 1
+        max = jump
+      }
+      if(i === nums.length - 1){
+        return jump
+      }
+  }
+  return -1;
+};
+
+console.log(can(nums))
+
+
+
+
+
+
+
+
+
+// let nums = [4,1,2,3,1,0,5];
+
+// function can(nums) {
+//   // Keep track of max distance traveled so far
+//   let max = 0;
+//   for(let i=0;i<nums.length;i++){
+//       // The only time that max < i is when we are at 0 and we cannot move forward
+//       if(i>max) return false;
+//       // Move the max pointer the maximum 
+//       max = Math.max(nums[i]+i,max);
+//   }
+//   // If we did not get stuck at a 0 then return true
+//   return true;
+// };
+
+// console.log(can(nums))
