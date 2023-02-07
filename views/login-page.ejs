@@ -1,7 +1,39 @@
 <%- include('includes/header') %>
 
-<body>
-    <h1>login page</h1>
-</body>
+    <link rel="stylesheet" href="/css/login.css" type="text/css">
 
-<%- include('includes/footer') %>
+    <body>
+        <form class="login_container" action="/resto/login" method="POST">
+            <!-- get is also okay -->
+            <div class="login_frame">
+
+                <div class="login_top">
+                    <span>Log in</span>
+                    <div>
+                        Return to Home page <a href="/resto" style="color: #6440fb">Home</a>
+                    </div>
+                    <p>
+                        You need to sign up first <a href="/resto/signup" style="color: #6440fb">Sign up</a>
+                    </p>
+                </div>
+
+                <div class="login_input_frame">
+                    <div class="login_input_container">
+                        <label for="">User name:</label>
+                        <input type="text" name="mb_nick" placeholder="Input your name" value="" required />
+                    </div>
+                    <div class="login_input_container"></div>
+
+                    <div class="login_input_container">
+                        <label for="">User password:</label>
+                        <input type="password" name="mb_password" placeholder="Input your password" value="" required />
+                    </div>
+                </div>
+
+                <button class="login_btn btn" name="login" type="submit">Submit</button>
+
+            </div>
+        </form>
+    </body>
+
+    <%- include('includes/footer') %>
