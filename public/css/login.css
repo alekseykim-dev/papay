@@ -4,7 +4,6 @@ body {
     height: 100%;
 }
 
-
 .login_container {
     position: relative;
     width: 100%;
@@ -23,9 +22,11 @@ body {
     0% {
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0% 50%;
     }
@@ -35,9 +36,11 @@ body {
     0% {
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0% 50%;
     }
@@ -47,7 +50,7 @@ body {
 .login_container .login_frame {
     position: relative;
     width: 420px;
-    height: 460px;
+    height: auto;
     display: flex;
     flex-direction: column;
     border-radius: 10px;
@@ -57,7 +60,7 @@ body {
 
 }
 
-.login_frame .login_top{
+.login_frame .login_top {
     position: relative;
     width: 100%;
     height: auto;
@@ -72,6 +75,7 @@ body {
     font-size: 30px;
     line-height: 34px;
 }
+
 .login_top p {
     margin-top: 15px;
     font-family: 'Poppins';
@@ -81,6 +85,7 @@ body {
     line-height: 26px;
 
 }
+
 .login_top div {
     font-family: 'Poppins';
     font-style: normal;
@@ -90,13 +95,13 @@ body {
 
 }
 
-.login_frame .login_input_frame{
+.login_frame .login_input_frame {
     position: relative;
     width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;
-    
+
 }
 
 .login_input_frame .login_input_container {
@@ -125,7 +130,7 @@ body {
     background-color: #f6f5f5;
     border: 1px solid #DDDDDD;
     border-radius: 8px;
-  
+
 }
 
 .login_frame .login_btn {
@@ -144,4 +149,141 @@ body {
     line-height: 33px;
     letter-spacing: -0.02em; */
     /* color: #ffffff; */
+}
+
+
+
+/* SIGN UP PAGE */
+
+.login_frame .sign_input_frame {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.sign_input_frame .sign_up_frame {
+    position: relative;
+    margin-top: 15px;
+    width: 49%;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.sign_up_frame label {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.sign_up_frame input {
+    position: relative;
+    margin-top: 10px;
+    padding-left: 20px;
+    width: 100%;
+    height: 55px;
+    background-color: #f6f5f5;
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+}
+
+
+.media-frame {
+    position: relative;
+    margin-top: 15px;
+    width: 100%;
+    height: 250px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.media-frame .upload_img_frame {
+    position: relative;
+    width: 275px;
+    height: 93%;
+    display: flex;
+    border-radius: 15px;
+}
+
+.media-frame .upload_container {
+    position: relative;
+    margin-left: 30px;
+    width: 75%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.media_text {
+    font-family: 'GT Walshein Pro';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+    color: #140342;
+}
+
+.filebox {
+    margin-top: 25px;
+    display: flex;
+}
+
+.filebox input[type="file"] {
+    position: relative;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.filebox label {
+    width: 120px;
+    height: 55px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #6A7A99;
+    border-radius: 0px 8px 8px 0px;
+
+    font-family: 'GT Walshein Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 26px;
+    color: #FFFFFF;
+}
+
+.filebox .upload-name {
+    position: relative;
+    padding: 20px;
+    width: 85%;
+    height: 55px;
+
+    display: flex;
+    background: #DDDDDD;
+
+    border: 1px solid #DDDDDD;
+    border-radius: 8px 0 0 8px;
+}
+
+
+.thumbnail_desc {
+    margin-top: 25px;
+    font-family: 'GT Walshein Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 26px;
+    color: #3532c2;
 }

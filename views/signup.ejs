@@ -1,6 +1,72 @@
 <%- include('includes/header') %>
-<body>
-    <h1>Signup page</h1>
-</body>
 
-<%- include('includes/footer') %>
+    <link rel="stylesheet" href="/css/login.css" type="text/css">
+
+    <body>
+        <form action="/resto/sign-up" class="login_container" enctype="multipart/form-data" method="POST">
+            <!-- multipart/form-data = file upload, in the same form as other text data. Separate pieces, allowing the server to process each part independently.
+
+     text/plain = simple unformatted text without any encoding or formatting. Not popular
+
+     application/x-www-form-urlencoded = encode form data in HTTP requests. Key-value pairs separated by an '&' symbol, with keys and values separated by an '=' symbol -->
+            <div class="login_frame" style="width: 650px; height: 730px">
+
+                <div class="login_top">
+                    <span>Sign in</span>
+                    <div>
+                        Go to <a href="/resto" style="color: #6440fb">Home</a> page.
+                    </div>
+                    <p>
+                        Already have <a href="/resto/login" style="color: #6440fb">an account</a>?
+                    </p>
+                </div>
+
+                <div class="sign_input_frame">
+                    <div class="sign_up_frame">
+                        <label for="">User name:</label>
+                        <input type="text" name="mb_nick" placeholder="Input your name" value="" required />
+                    </div>
+
+                    <div class="sign_up_frame">
+                        <label for="">Phone number:</label>
+                        <input type="text" name="mb_phone" placeholder="Input your phone number" value="" required />
+                    </div>
+                </div>
+
+
+                <div class="sign_input_frame">
+                    <div class="sign_up_frame">
+                        <label for="">Password:</label>
+                        <input type="password" name="mb_password" placeholder="Create password" value="" required />
+                    </div>
+
+                    <div class="sign_up_frame">
+                        <label for="">Confirm your password:</label>
+                        <input type="password" name="mb_confirm_password" placeholder="Input your password again"
+                            value="" required />
+                    </div>
+                </div>
+
+
+                <div class="login_input_frame">
+                    <div class="media-frame">
+                        <img src="/images/default_resto.jpeg" class="upload_img_frame">
+                        <div class="upload_container">
+                            <span class="media_text">Dish image</span>
+                            <div class="filebox bs3-primary preview-image">
+                                <input class="upload-name" value="Choose image" disabled="disabled">
+                                <label>Upload image</label>
+                                <input type="file" id="input_file" name="restaurant_img" placeholder="Choose image"
+                                    value="" class="upload-hidden form-control-file restaurant_img" />
+                            </div>
+                            <p class="thumbnail_desc">Upload your restaurant image. <br>Recommended extentions: .jpg,
+                                .jpeg, .png <br>No text on image is allowed!</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="login_btn btn" name="signup" type="submit">Sign up</button>
+            </div>
+        </form>
+    </body>
+
+    <%- include('includes/footer') %>
