@@ -17,9 +17,9 @@ restaurantController.getMyRestaurantProducts = async (req, res) => {
     console.log("GET: cont/getMyRestaurantProducts");
     const product = new Product();
     const data = await product.getAllProductsDataResto(res.locals.member);
-    res.render("restaurant-menu", { restaurant_data: data });
+    res.render("restaurant-menu", { restaurant_data: data }); // browser
   } catch (err) {
-    console.log(`ERROR cont/getMyRestaurantData, ${err.message}`);
+    console.log(`ERROR cont/getMyRestaurantProducts, ${err.message}`);
     res.json({ state: "Failed", message: err.message });
   }
 };
@@ -36,7 +36,7 @@ restaurantController.getSignupMyRestaurant = async (req, res) => {
 
 restaurantController.signupProcess = async (req, res) => {
   try {
-    console.log("POST: cont/signup");
+    console.log("POST: cont/signupProcess");
     const data = req.body,
       member = new Member(),
       new_member = await member.signupData(data);
@@ -48,7 +48,7 @@ restaurantController.signupProcess = async (req, res) => {
 
     // res.json({ state: "Succeeded", data: new_member }); NOT NEEDED
   } catch (err) {
-    console.log(`ERROR cont/signup, ${err.message}`);
+    console.log(`ERROR cont/signupProcess, ${err.message}`);
     res.json({ state: "Failed", message: err.message });
   }
 };
@@ -65,20 +65,20 @@ restaurantController.getLoginMyRestaurant = async (req, res) => {
 
 restaurantController.loginProcess = async (req, res) => {
   try {
-    console.log("POST: cont/login");
+    console.log("POST: controller/loginProcess");
     const data = req.body,
       member = new Member(),
-      result = await member.loginData(data);
+      result = await member.loginData(data); //69 line/. loginData goes to Member Js
 
     req.session.member = result;
     req.session.save(function () {
-      res.redirect("/resto/products/menu"); // WILL be changed soon
+      result.mb_type === "ADMIN"
+        ? res.redirect("/resto/all-restaurant")
+        : res.redirect("/resto/products/menu"); // goes to router bssr
     });
-
-    // res.json({ state: "Succeeded", data: result });
   } catch (err) {
-    console.log(`ERROR cont/signup, ${err.message}`);
-    res.json({ state: "Failed", message: err.message });
+    console.log(`ERROR: controller/loginProcess`, err.message);
+    res.json({ state: "failed", message: err.message });
   }
 };
 
@@ -113,3 +113,7 @@ restaurantController.checkSessions = (req, res) => {
 
 // get fetches data
 // post submits data
+
+// result.mb_type === "ADMIN"
+//         ? res.redirect("/resto/all-restaurant") // for admin
+//         :

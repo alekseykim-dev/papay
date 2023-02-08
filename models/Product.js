@@ -13,11 +13,11 @@ async getAllProductsDataResto(member) {
   try{
     member._id = shapeIntoMongooseObjectId(member._id);
     const result = await this.productModel.find({
-      restaurant_mb_id: member._id
+      restaurant_mb_id: member._id  // find the products related to the member._id
     })
     assert.ok(result, Definer.general_err1);
     console.log('result:', result ) //empty
-    return result;
+    return result;  // shows 16 comment
   } catch(err){
     throw(err);
   }
