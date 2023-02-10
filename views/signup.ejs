@@ -3,7 +3,10 @@
     <link rel="stylesheet" href="/css/login.css" type="text/css">
 
     <body>
-        <form action="/resto/sign-up" class="login_container" enctype="multipart/form-data" method="POST">
+        <form onsubmit="return validateSignUpForm()" action="/resto/sign-up" class="login_container"
+            enctype="multipart/form-data" method="POST">
+            <!-- it goes to router BSSR and then rest contr -->
+
             <!-- multipart/form-data = file upload, in the same form as other text data. Separate pieces, allowing the server to process each part independently.
 
      text/plain = simple unformatted text without any encoding or formatting. Not popular
@@ -24,12 +27,14 @@
                 <div class="sign_input_frame">
                     <div class="sign_up_frame">
                         <label for="">User name:</label>
-                        <input type="text" name="mb_nick" placeholder="Input your name" value="" required />
+                        <input type="text" name="mb_nick" class="mb_nick" placeholder="Input your name" value=""
+                            required />
                     </div>
 
                     <div class="sign_up_frame">
                         <label for="">Phone number:</label>
-                        <input type="text" name="mb_phone" placeholder="Input your phone number" value="" required />
+                        <input type="text" name="mb_phone" class="mb_phone" placeholder="Input your phone number"
+                            value="" required />
                     </div>
                 </div>
 
@@ -37,13 +42,14 @@
                 <div class="sign_input_frame">
                     <div class="sign_up_frame">
                         <label for="">Password:</label>
-                        <input type="password" name="mb_password" placeholder="Create password" value="" required />
+                        <input type="password" name="mb_password" class="mb_password" placeholder="Create password"
+                            value="" required />
                     </div>
 
                     <div class="sign_up_frame">
                         <label for="">Confirm your password:</label>
-                        <input type="password" name="mb_confirm_password" placeholder="Input your password again"
-                            value="" required />
+                        <input type="password" name="mb_confirm_password" class="mb_confirm_password"
+                            placeholder="Input your password again" value="" required />
                     </div>
                 </div>
 
@@ -55,7 +61,7 @@
                             <span class="media_text">Dish image</span>
                             <div class="filebox bs3-primary preview-image">
                                 <input class="upload-name" value="Choose image" disabled="disabled">
-                                <label>Upload image</label>
+                                <label for="input_file">Upload image</label>
                                 <input type="file" id="input_file" name="restaurant_img" placeholder="Choose image"
                                     value="" class="upload-hidden form-control-file restaurant_img" />
                             </div>
@@ -69,4 +75,59 @@
         </form>
     </body>
 
+    <script>
+
+        $(function () {
+            let fileTarget = $('.filebox .upload-hidden');
+            let filename = "";
+            fileTarget.on('change', function () {
+                if (window.FileReader) {
+                    const uploading_file = $(this)[0].files[0];
+                    const fileType = uploading_file['type'];
+                    const validImageTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+
+                    if (!validImageTypes.includes(fileType)) {
+                        alert('Please, use only recommended extentions: jpg, jpeg or png')
+                    } else {
+                        if (uploading_file) {
+                            console.log(URL.createObjectURL(uploading_file));
+                            $('.upload_img_frame').attr('src', URL.createObjectURL(uploading_file)).addClass('succsess') //64 line upload_img
+                        }
+                        filename = uploading_file.name; //returns the name of the file
+                    }
+                }
+                $(this).siblings('.upload-name').val(filename); //gets valueof input  or sets new value
+            });
+        }); //format pic
+
+
+
+        function validateSignUpForm() {
+            const mb_nick = $(".mb_nick").val();
+            const mb_phone = $(".mb_phone").val();
+            const mb_password = $(".mb_password").val();
+            const mb_confirm_password = $(".mb_confirm_password").val();
+            const restaurant_img = $('.restaurant_img').get(0).files[0] ?? null; // cannot get it
+
+
+            if (mb_nick == "" || mb_phone == "" || mb_password == "" || mb_confirm_password == "") {
+                alert('Please fill in all the blanks!')
+                return false
+            } else if (mb_password !== mb_confirm_password) {
+                alert('Please check your password!')
+                return false
+            }
+
+            if (!restaurant_img) {
+                alert('Please upload an image!')
+                return false
+
+            }
+            return true;    // if true, it works. if false it test // doesn't send request to backend if falsy
+        }
+    </script>
+
     <%- include('includes/footer') %>
+
+
+        // if there's no errror and it posts, then it goes to sign up (line 6)

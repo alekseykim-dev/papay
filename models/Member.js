@@ -28,7 +28,7 @@ class Member {
   async loginData(input) {
     try {
       const member = await this.memberModel
-        .findOne({ mb_nick: input.mb_nick }, { mb_nick: 1, mb_password: 1 }) // 1 = neccesary, 0 = not necessary
+        .findOne({ mb_nick: input.mb_nick }, { mb_nick: 1, mb_password: 1 }) //forced query // 1 = neccesary, 0 = not necessary
         .exec();
 
       assert.ok(member, Definer.auth_err3);

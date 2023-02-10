@@ -6,17 +6,20 @@ const { router } = require("./app");
 // const { uploadPoductImage } = require("./utils/upload-multer");  if manually img uploading
 const uploader_product = require("./utils/upload-multer")("products"); //address of the folder in uploads why not(../) ?
 
+const uploader_members = require("./utils/upload-multer")("members");
 /*********************************
  *             BSSR EJS          *
  *********************************/
 
-
-
-router_bssr.get("/", restaurantController.home)
+router_bssr.get("/", restaurantController.home);
 
 router_bssr
   .get("/sign-up", restaurantController.getSignupMyRestaurant)
-  .post("/sign-up", restaurantController.signupProcess);
+  .post(
+    "/sign-up",
+    uploader_members.single("restaurant_img"),
+    restaurantController.signupProcess
+  );
 router_bssr
   .get("/login", restaurantController.getLoginMyRestaurant)
   .post("/login", restaurantController.loginProcess);
@@ -34,7 +37,7 @@ router_bssr.post(
   "/products/edit/:id",
   restaurantController.validateAuthRestaurant,
   productController.updateChosenProduct
-); 
+);
 
 module.exports = router_bssr;
 

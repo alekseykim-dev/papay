@@ -1,5 +1,7 @@
+const assert = require("assert");
 const Member = require("../models/Member");
 const Product = require("../models/Product");
+const Definer = require("../lib/mistake");
 
 let restaurantController = module.exports;
 restaurantController.home = (req, res) => {
@@ -37,16 +39,26 @@ restaurantController.getSignupMyRestaurant = async (req, res) => {
 restaurantController.signupProcess = async (req, res) => {
   try {
     console.log("POST: cont/signupProcess");
-    const data = req.body,
-      member = new Member(),
-      new_member = await member.signupData(data);
+    // console.log('body', req.body) //info about user
+    // console.log('file:', req.file)  //info about file
 
-    req.session.member = new_member;
+    assert(req.file, Definer.general_err3); //no 'files', because single image is uploaded
+
+    let new_member = req.body;  //info about user
+    new_member.mb_type = 'RESTAURANT'; //because only for admin panel
+    new_member.mb_image = req.file.path; //member_model
+
+    const member = new Member();
+    const result = await member.signupData(new_member); //member.js + 47
+    assert(req.file, Definer.general_err1); //no 'files', because single image is uploaded
+
+    req.session.member = result;
     res.redirect("/resto/products/menu");
 
     // SESSION AUTH
 
     // res.json({ state: "Succeeded", data: new_member }); NOT NEEDED
+
   } catch (err) {
     console.log(`ERROR cont/signupProcess, ${err.message}`);
     res.json({ state: "Failed", message: err.message });
@@ -86,11 +98,6 @@ restaurantController.logout = (req, res) => {
   console.log("GET cont.logout");
   res.send("logout sahifadasiz");
 };
-
-// restaurantController.validateAuthRestaurant = () => {
-//   console.log("GET cont.logout");
-//   res.send("logout sahifasi");
-// };
 
 restaurantController.validateAuthRestaurant = (req, res, next) => {
   if (req.session?.member?.mb_type === "RESTAURANT") {
