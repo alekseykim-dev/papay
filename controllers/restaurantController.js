@@ -6,39 +6,39 @@ const Definer = require("../lib/mistake");
 let restaurantController = module.exports;
 restaurantController.home = (req, res) => {
   try {
-    console.log("GET: cont/home");
+    console.log("GET: controller/home");
     res.render("home-page");
   } catch (err) {
-    console.log(`ERROR cont/home, ${err.message}`);
+    console.log(`ERROR controller/home, ${err.message}`);
     res.json({ state: "Failed", message: err.message });
   }
 };
 
 restaurantController.getMyRestaurantProducts = async (req, res) => {
   try {
-    console.log("GET: cont/getMyRestaurantProducts");
-    const product = new Product();
+    console.log("GET: controller/getMyRestaurantProducts");
+    const product = new Product();  //result[] goes to PRODUCT.js
     const data = await product.getAllProductsDataResto(res.locals.member);
     res.render("restaurant-menu", { restaurant_data: data }); // browser
   } catch (err) {
-    console.log(`ERROR cont/getMyRestaurantProducts, ${err.message}`);
+    console.log(`ERROR controller/getMyRestaurantProducts, ${err.message}`);
     res.json({ state: "Failed", message: err.message });
   }
 };
 
 restaurantController.getSignupMyRestaurant = async (req, res) => {
   try {
-    console.log("GET: cont/getSignupMyRestaurant");
+    console.log("GET: controller/getSignupMyRestaurant");
     res.render("signup");
   } catch (err) {
-    console.log(`ERROR cont/getSignupMyRestaurant, ${err.message}`);
+    console.log(`ERROR controller/getSignupMyRestaurant, ${err.message}`);
     res.json({ state: "Failed", message: err.message });
   }
 };
 
 restaurantController.signupProcess = async (req, res) => {
   try {
-    console.log("POST: cont/signupProcess");
+    console.log("POST: controller/signupProcess");
     // console.log('body', req.body) //info about user
     // console.log('file:', req.file)  //info about file
 
@@ -60,17 +60,17 @@ restaurantController.signupProcess = async (req, res) => {
     // res.json({ state: "Succeeded", data: new_member }); NOT NEEDED
 
   } catch (err) {
-    console.log(`ERROR cont/signupProcess, ${err.message}`);
+    console.log(`ERROR controller/signupProcess, ${err.message}`);
     res.json({ state: "Failed", message: err.message });
   }
 };
 
 restaurantController.getLoginMyRestaurant = async (req, res) => {
   try {
-    console.log("GET: cont/getLoginMyRestaurant");
+    console.log("GET: controller/getLoginMyRestaurant");
     res.render("login-page");
   } catch (err) {
-    console.log(`ERROR cont/getLoginMyRestaurant, ${err.message}`);
+    console.log(`ERROR controller/getLoginMyRestaurant, ${err.message}`);
     res.json({ state: "Failed", message: err.message });
   }
 };
@@ -89,14 +89,23 @@ restaurantController.loginProcess = async (req, res) => {
         : res.redirect("/resto/products/menu"); // goes to router bssr
     });
   } catch (err) {
-    console.log(`ERROR: controller/loginProcess`, err.message);
+    console.log(`ERROR: controller/loginProcess, ${err.message}`);
     res.json({ state: "failed", message: err.message });
   }
 };
 
 restaurantController.logout = (req, res) => {
-  console.log("GET cont.logout");
-  res.send("logout sahifadasiz");
+  try{
+    console.log("GET  controller/logout");     // sends to console
+    // res.send("logout sahifadasiz");    // sends to browser
+    req.session.destroy(function(){
+      res.redirect("/resto")
+    })
+
+  }catch(err){
+    console.log(`ERROR: controller/logoutProcess, ${err.message}`);
+    res.json({ state: "failed", message: err.message });
+  }
 };
 
 restaurantController.validateAuthRestaurant = (req, res, next) => {
