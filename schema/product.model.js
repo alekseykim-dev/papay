@@ -46,7 +46,7 @@ const productSchema = new mongoose.Schema(
     },
     product_size: {
       type: String,
-      default: "Normal",
+      default: "normal",
       required: function () {
         const sized_list = ["dish", "salad", "dessert"];
         return sized_list.includes(this.product_collection);
@@ -60,7 +60,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       default: 1,
       required: function () {
-        return this.product_collection === "drink";
+        return this.product_collection === "beverage";
       },
       enum: {
         values: product_volume_enums,

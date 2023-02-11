@@ -1,17 +1,84 @@
 <%- include('includes/header') %>
 
+    <link rel="stylesheet" href="/css/menu.css" type="text/css">
+
     <body>
-        <h1>My restaurant page</h1>
+        <div id="main_container">
+            <div class="group_name">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item" style="cursor: pointer">
+                        <a class="nav-link active " href="/resto">Home</a>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer">
+                        <a class="nav-link " href="/resto/products/menu">MyResto</a>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer">
+                        <a class="nav-link " href="/resto/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="restaurant_menu_frame">
+                <div class="restaurant_container">
+                    <div class="dish_table">
+                        <span class="new_dish_txt">
+                            <%= member.mb_nick %> Dish menu
+                        </span>
+                        <table class="table table-bordered table-hover text-light">
+                            <thread class="thread-light">
+                                <th scope="col">T/r</th>
+                                <th scope="col">Dish name</th>
+                                <th scope="col">Dish type</th>
+                                <th scope="col">Dish size</th>
+                                <th scope="col">Dish Price</th>
+                                <th scope="col">Dish quantity left</th>
+                                <th scope="col">Dish status</th>
+                            </thread>
+                            <% restaurant_data.map((value, key)=> { %>
+                                <tbody style="background: white; color: black;">
+                                    <td>
+                                        <%= key + 1 %>
+                                    </td>
+                                    <td>
+                                        <%= value.product_name %>
+                                    </td>
+                                    <td>
+                                        <%= value.product_collection %>
+                                    </td>
+                                    <td>
+                                        <%= value.product_collection==='beverage' ? value.product_volume :
+                                            value.product_size %>
+                                    </td>
+                                    <td>
+                                        <%= value.product_price %>
+                                    </td>
+                                    <td>
+                                        <%= value.product_left_cnt %>
+                                    </td>
+                                    <td>
+                                        <select id="<%= value._id %>" class="spec_select">
+                                            <option value="PAUSED" <% value.product_status==='PAUSED' ? 'selected' : ''
+                                                %> >PAUSED</option>
+                                            <option value="PROCESS" <% value.product_status==='PROCESS' ? 'selected'
+                                                : '' %> >PROCESS</option>
+                                            <!-- <option value="DELETED" <% value.product_status === 'DELETED' ? 'selected' : '' %> >DeLETED</option> -->
+                                        </select>
+                                    </td>
+                                </tbody>
+                                <% }) %>
 
-        <% if(!member) { %>
+                        </table>
+                    </div>
 
-            <h2> You are not authenticated</h2>
-            <% } else { %>
 
-                <h1>You have been authenticated and your nickname is <%= member.mb_nick%>
-                        <p> Your phone number is <%= member.mb_phone%></p>
-                </h1>
-                <% } %>
+                    <form onsubmit="return validateForm()" action="resto/products/create" method="POST"
+                        class="dish_container" enctype="multipart/form-data">
+                        <div class="long_input" style="align-items: flex-end; margin-bottom: 25px;">
+                        <div class="new_dish_txt"></div></div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
 
     </body>
 
