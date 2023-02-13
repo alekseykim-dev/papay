@@ -27,11 +27,10 @@ async getAllProductsDataResto(member) {
     try {
       data.restaurant_mb_id = shapeIntoMongooseObjectId(member._id);
 
-      const new_product = new ProductModel(data);
+      const new_product = this.productModel(data);
       const result = await new_product.save();
 
       assert.ok(result, Definer.product_err1);
-
       return result;
     } catch (err) {
       throw err;

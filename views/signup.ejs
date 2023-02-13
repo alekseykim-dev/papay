@@ -107,7 +107,7 @@
             const mb_phone = $(".mb_phone").val();
             const mb_password = $(".mb_password").val();
             const mb_confirm_password = $(".mb_confirm_password").val();
-            const restaurant_img = $('.restaurant_img').get(0).files[0] ?? null; // cannot get it
+            const restaurant_img = $('.restaurant_img').get(0).files[0] ?? null; // nullish anyway
 
 
             if (mb_nick == "" || mb_phone == "" || mb_password == "" || mb_confirm_password == "") {

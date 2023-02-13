@@ -20,11 +20,13 @@ productController.addNewProduct = async (req, res) => {
     const product = new Product();
     let data = req.body;
     // 23  takes name from POSTMAN
+
     data.product_images = req.files.map((ele) => {
       return ele.path; //shows where each file is uploaded
     });
 
     const result = await product.addNewProductData(data, req.member);
+
     // console.log(data) // shows path
     const html = `<script>alert('new dish added successfully');
     window.location.replace('/resto/products/menu') 
@@ -44,10 +46,11 @@ productController.updateChosenProduct = async (req, res) => {
       id,
       req.body,
       req.member._id
-    ); 
+    );
     await res.json({ state: "Success", data: result });
   } catch (err) {
     console.log(`ERROR cont/updateChosenProduct, ${err.message}`);
     res.json({ state: "Failed", message: err.message });
   }
 };
+   

@@ -218,3 +218,35 @@ console.log(can(nums))
 // };
 
 // console.log(can(nums))
+
+
+
+
+// // Set up the scene, camera, renderer, and lighting
+// var scene = new THREE.Scene();
+// var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+// var renderer = new THREE.WebGLRenderer();
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(renderer.domElement);
+// var light = new THREE.PointLight(0xffffff, 1, 100);
+// light.position.set(0, 0, 50);
+// scene.add(light);
+
+// // Create a sphere geometry
+// var sphereGeometry = new THREE.SphereGeometry(5, 32, 32);
+// var sphereMaterial = new THREE.MeshLambertMaterial({color: 0x00ff00});
+// var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+// sphere.position.set(0, 0, 0);
+// scene.add(sphere);
+
+// // Animate the sphere using the requestAnimationFrame function
+// var animate = function () {
+//   requestAnimationFrame(animate);
+
+//   sphere.rotation.x += 0.01;
+//   sphere.rotation.y += 0.01;
+
+//   renderer.render(scene, camera);
+// };
+
+// animate();

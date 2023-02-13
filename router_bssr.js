@@ -37,8 +37,8 @@ router_bssr.post(
   "/products/edit/:id",
   restaurantController.validateAuthRestaurant,
   productController.updateChosenProduct
-);
-
+); 
+  
 module.exports = router_bssr;
 
 // 1. oddiy

@@ -36,7 +36,7 @@
                             <% restaurant_data.map((value, key)=> { %>
                                 <tbody style="background: white; color: black;">
                                     <td>
-                                        <%= key + 1 %>
+                                        <%= key +1 %>
                                     </td>
                                     <td>
                                         <%= value.product_name %>
@@ -45,7 +45,7 @@
                                         <%= value.product_collection %>
                                     </td>
                                     <td>
-                                        <%= value.product_collection==='beverage' ? value.product_volume :
+                                        <%= value.product_collection==="beverage" ? value.product_volume :
                                             value.product_size %>
                                     </td>
                                     <td>
@@ -55,30 +55,224 @@
                                         <%= value.product_left_cnt %>
                                     </td>
                                     <td>
-                                        <select id="<%= value._id %>" class="spec_select">
-                                            <option value="PAUSED" <% value.product_status==='PAUSED' ? 'selected' : ''
+                                        <select id="<%= value._id %>" class="spec_select new_product_status">
+                                            <option value="PAUSED" <%=value.product_status==='PAUSED' ? 'selected' : ''
                                                 %> >PAUSED</option>
-                                            <option value="PROCESS" <% value.product_status==='PROCESS' ? 'selected'
+                                            <option value="PROCESS" <%=value.product_status==='PROCESS' ? 'selected'
                                                 : '' %> >PROCESS</option>
-                                            <!-- <option value="DELETED" <% value.product_status === 'DELETED' ? 'selected' : '' %> >DeLETED</option> -->
                                         </select>
                                     </td>
                                 </tbody>
-                                <% }) %>
+                                <% }); %>
 
                         </table>
+
+                        <div class="long_input" style="align-items: flex-end; margin-bottom: 25px;">
+                            <button class="btn btn-primary hiding_btn">Add dish</button>
+                        </div>
                     </div>
 
 
-                    <form onsubmit="return validateForm()" action="resto/products/create" method="POST"
+                    <form onsubmit="return validateForm()" action="/resto/products/create" method="POST"
                         class="dish_container" enctype="multipart/form-data">
+
+                        <div class="long_input" style="display: flex; align-items: center; margin-bottom: 25px;">
+                            <span class="new_dish_txt">New dish</span>
+                        </div>
+
+
+                        <div>
+                            <div class="long_input">
+                                <label for="">Dish name</label>
+                                <input type="text" placeholder="Dish name" name="product_name" class="product_name" />
+                            </div>
+                            <input type="text" name="product_status" value="PAUSED" class="product_status" hidden>
+                        </div>
+
+                        <div class="half_input_frame">
+                            <div class="half_input">
+                                <label style="color: aliceblue;" for="">Dish price</label>
+                                <input type="number" placeholder="Dish price" name="product_price"
+                                    class="product_price" />
+                            </div>
+
+                            <div class="half_input">
+                                <label style="color: aliceblue;" for="">Dish remanied quantity </label>
+                                <input type="text" placeholder="Dish quantity available" name="product_left_cnt"
+                                    class="product_left_cnt" />
+                            </div>
+
+
+                        </div>
+                        <div class="half_input_frame">
+
+                            <div class="half_input">
+                                <label style="color: aliceblue;" for="">Dish type</label>
+                                <select class="product_collection" name="product_collection">
+                                    <option value="dish" selected>Dish</option>
+                                    <option value="salad">Salad</option>
+                                    <option value="dessert">Dessert</option>
+                                    <option value="beverage">Beverage</option>
+                                    <option value="etc">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="half_input" id="product_size">
+                                <label for="">Dish size</label>
+                                <select class="product_size" name="product_size">
+                                    <option value="small">Small</option>
+                                    <option value="normal" selected>Normal</option>
+                                    <option value="large">Large</option>
+                                    <option value="set">Set</option>
+                                </select>
+                            </div>
+
+
+                            <div class="half_input" id="product_volume" style="display: none;">
+                                <label for="">Beverage size</label>
+                                <select class="product_volume" name="product_volume">
+                                    <option value="0.5">0.5 l</option>
+                                    <option value="1">1 l</option>
+                                    <option value="1.2">1.2 l</option>
+                                    <option value="1.5">1.5 l</option>
+                                    <option value="2">2 l</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="long_input">
+                            <label for="">About dish</label>
+                            <textarea placeholder="Write about the dish" name="product_description"
+                                class="product_description"></textarea>
+                        </div>
+
+                        <div class="img_frame">
+                            <label for="">Dish images</label>
+                            <div class="media-frame">
+                                <div class="upload_img_box">
+                                    <img src="/images/upload.svg" class="1" id="image_section_1">
+                                    <input type="file" id="file" name="product_images" class="image_one"
+                                        onchange="previewFileHandler(this, 1)">
+                                </div>
+                                <div class="upload_img_box">
+                                    <img src="/images/upload.svg" class="2" id="image_section_2">
+                                    <input type="file" id="file" name="product_images" class="image_two"
+                                        onchange="previewFileHandler(this, 2)">
+                                </div>
+                                <div class="upload_img_box">
+                                    <img src="/images/upload.svg" class="3" id="image_section_3">
+                                    <input type="file" id="file" name="product_images" class="image_three"
+                                        onchange="previewFileHandler(this, 3)">
+                                </div>
+                                <div class="upload_img_box">
+                                    <img src="/images/upload.svg" class="4" id="image_section_4">
+                                    <input type="file" id="file" name="product_images" class="image_four"
+                                        onchange="previewFileHandler(this, 4)">
+                                </div>
+                                <div class="upload_img_box">
+                                    <img src="/images/upload.svg" class="5" id="image_section_5">
+                                    <input type="file" id="file" name="product_images" class="image_five"
+                                        onchange="previewFileHandler(this, 5)">
+                                </div>
+
+
+                            </div>
+                        </div>
+
                         <div class="long_input" style="align-items: flex-end; margin-bottom: 25px;">
-                        <div class="new_dish_txt"></div></div>
+                            <button type="submit" class="btn btn-primary" id="create_product">Upload</button>
+                        </div>
                     </form>
                 </div>
 
             </div>
         </div>
+
+        <script>
+            $(function () {
+
+                $(".product_collection").on("change", () => {
+                    const selected_value = $(".product_collection").val();
+                    if (selected_value === 'beverage') {
+                        $("#product_volume").show();
+                        $("#product_size").hide();
+                    } else {
+                        $("#product_volume").hide();
+                        $("#product_size").show();
+                    }
+                })
+
+                $('.hiding_btn').on("click", () => {
+                    $(".dish_container").slideToggle(500);
+                    $(".hiding_btn").css("display", "none");
+                })
+
+
+                // product status changer
+    
+                $(".new_product_status").on("change", async function(e) {
+                    const id = e.target.id;
+                    const product_status = $(`#${id}.new_product_status`).val();
+                    // alert(product_status)
+                    const mb_id = '<%= member._id%>';
+                    
+                    try{ 
+                        const response = await axios.post(`/resto/products/edit/${id}`, {id: id, product_status: product_status});
+                        const result = response.data;
+                        console.log("result:",result);
+
+                        if(result.state === 'Success') { //
+                            alert('Success');
+                            location.reload();
+                        }else{
+                             alert(result.message)
+
+                        }
+
+
+                    } catch(err){
+                     console.log('update ChosenProduct err:', err)
+                    }
+                })
+            })
+
+
+
+            function validateForm() {
+                const restaurant_mb_id = $(".restaurant_mb_id").val(),
+                    product_name = $(".product_name").val(),
+                    product_price = $(".product_price").val(),
+                    product_left_cnt = $(".product_left_cnt").val(),
+                    product_collection = $(".product_collection").val(),
+                    product_description = $(".product_description").val(),
+                    product_status = $(".product_status").val();
+
+                if (restaurant_mb_id == '' || product_name == '' || product_price == '' || product_left_cnt == '' || product_collection == '' || product_description == '' || product_status == '') {
+                    alert('Please, fill in all blanks!')
+                    return false;
+                } else return true;
+            }
+
+            function previewFileHandler(input, order) {
+
+                const image_class_name = input.className;
+                const file = $(`.${image_class_name}`).get(0).files[0],
+                    fileType = file['type'],
+                    validImageTypes = ['image/jpg', 'image/jpeg', 'image/png']
+
+                if (!validImageTypes.includes(fileType)) {
+                    alert('Please upload only jpg, jpeg or png');
+                } else {
+                    if (file) {
+                        let reader = new FileReader();
+                        reader.onload = function () {
+                            $(`#image_section_${order}`).attr("src", reader.result);
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                }
+            }
+        </script>
 
     </body>
 
