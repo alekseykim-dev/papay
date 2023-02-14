@@ -4,6 +4,7 @@ const Product = require("../models/Product");
 const Definer = require("../lib/mistake");
 
 let restaurantController = module.exports;
+
 restaurantController.home = (req, res) => {
   try {
     console.log("GET: controller/home");
@@ -17,7 +18,7 @@ restaurantController.home = (req, res) => {
 restaurantController.getMyRestaurantProducts = async (req, res) => {
   try {
     console.log("GET: controller/getMyRestaurantProducts");
-    const product = new Product();  //result[] goes to PRODUCT.js
+    const product = new Product(); //result[] goes to PRODUCT.js
     const data = await product.getAllProductsDataResto(res.locals.member);
     res.render("restaurant-menu", { restaurant_data: data }); // browser
   } catch (err) {
@@ -44,8 +45,8 @@ restaurantController.signupProcess = async (req, res) => {
 
     assert(req.file, Definer.general_err3); //no 'files', because single image is uploaded
 
-    let new_member = req.body;  //info about user
-    new_member.mb_type = 'RESTAURANT'; //because only for admin panel
+    let new_member = req.body; //info about user
+    new_member.mb_type = "RESTAURANT"; //because only for admin panel
     new_member.mb_image = req.file.path; //member_model
 
     const member = new Member();
@@ -58,7 +59,6 @@ restaurantController.signupProcess = async (req, res) => {
     // SESSION AUTH
 
     // res.json({ state: "Succeeded", data: new_member }); NOT NEEDED
-
   } catch (err) {
     console.log(`ERROR controller/signupProcess, ${err.message}`);
     res.json({ state: "Failed", message: err.message });
@@ -95,14 +95,13 @@ restaurantController.loginProcess = async (req, res) => {
 };
 
 restaurantController.logout = (req, res) => {
-  try{
-    console.log("GET  controller/logout");     // sends to console
+  try {
+    console.log("GET controller/logout"); // sends to console
     // res.send("logout sahifadasiz");    // sends to browser
-    req.session.destroy(function(){
-      res.redirect("/resto")
-    })
-
-  }catch(err){
+    req.session.destroy(function () {
+      res.redirect("/resto");
+    });
+  } catch (err) {
     console.log(`ERROR: controller/logoutProcess, ${err.message}`);
     res.json({ state: "failed", message: err.message });
   }
@@ -127,9 +126,31 @@ restaurantController.checkSessions = (req, res) => {
   }
 };
 
+restaurantController.validateAdmin = (req, res, next) => {
+  if (req.session?.member?.mb_type === "ADMIN") {
+    req.member = req.session.member;
+    next();
+  } else {
+    const html = `<script> 
+                  alert('Admin page: Permission denied');
+                  window.location.replace('/resto');
+                  </script>`;
+    res.end(html);
+  }
+};
+
+restaurantController.getAllRestaurants = (req, res) => {
+  try {
+    console.log("GET controller/getAllRestaurants");
+    // todo: retrieve all restaurants for DB
+
+    res.render("all-restaurants");
+
+  } catch (err) {
+    console.log(`ERROR: controller/getAllRestaurants, ${err.message}`);
+    res.json({ state: "failed", message: err.message });
+  }
+};
+
 // get fetches data
 // post submits data
-
-// result.mb_type === "ADMIN"
-//         ? res.redirect("/resto/all-restaurant") // for admin
-//         :
