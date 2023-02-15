@@ -147,7 +147,7 @@ restaurantController.getAllRestaurants = async (req, res) => {
     const restaurant = new Restaurant();
     const restaurants_data = await restaurant.getAllRestaurantsData()
     // todo: retrieve all restaurants for DB  ==> DONE
-    console.log("restaurants_data:", restaurants_data);
+    // console.log("restaurants_data:", restaurants_data);
 
     res.render("all-restaurants", {restaurants_data: restaurants_data});
 
@@ -171,4 +171,4 @@ restaurantController.updateRestaurantByAdmin = async (req, res) => {
 }
 // get fetches data
 // post submits data
-  
+    

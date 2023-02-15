@@ -58,7 +58,7 @@
                                     </td>
 
                                     <td style="width: 13%;">
-                                        <select class="spec_select mb_status">
+                                        <select class="spec_select mb_status" id="<%= value._id %>">
                                             <option value="ONPAUSE" <%=value.mb_status==='ONPAUSE' ? 'selected' : '' %>
                                                 >ONPAUSE</option>
                                             <option value="ACTIVE" <%=value.mb_status==='ACTIVE' ? 'selected' : '' %>
@@ -88,9 +88,26 @@
 
                     axios.post('/resto/all-restaurant/edit', { id: id, mb_top: mb_top }).then((response) => {
                         const result = response.data; //data from server   res cont 166
-                        if(result.state === 'Success') alert('Successfully updated!');
+                        if (result.state === 'Success') alert('Toggle status successfully updated!');
                         else alert(result.message)
-                    }) 
+                    })
+                        .catch((err) => console.log(err))
+                });
+
+
+                // manipulate restaurant status features
+
+                $(".mb_status").on('change', function (e) {
+                    const id = e.target.id;
+                    const mb_status = $(`#${id}.mb_status`).val();
+
+                    console.log('mb_status:', mb_status)
+
+                    axios.post('/resto/all-restaurant/edit', { id: id, mb_status: mb_status }).then((response) => {
+                        const result = response.data; //data from server   res cont 166
+                        if (result.state === 'Success') alert('Restaurant status successfully updated!');
+                        else alert(result.message)
+                    })
                         .catch((err) => console.log(err))
                 });
             });
