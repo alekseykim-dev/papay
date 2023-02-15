@@ -102,11 +102,11 @@ input:checked + .slider:before {
 
 /* Rounded sliders */
 
-.slider.around {
+.slider.round {
     border-radius: 34px;
 }
 
-.slider.around:before {
+.slider.round:before {
     border-radius: 50%;
 }
 

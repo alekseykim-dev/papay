@@ -37,25 +37,37 @@
                                     <th scope="col">Restaurant status </th>
                                 </tr>
                             </thread>
-                            <tbody style="background: white; color: black;">
-                                <td> 1 </td>
-                                <td> Texas De Brazil</td>
-                                <td> 9989074158790 </td>
-                                <td style="width: 13%;"> 
-                                    <label class="switch">
-                                        <input type="checkbox" class="mb_top">
-                                        <span class="slider around"></span>
-                                    </label>
-                                </td>
-                                <td style="width: 13%;">
-                                    <select class="spec_select mb_status">
-                                        <option value="ONPAUSE">ONPAUSE</option>
-                                        <option value="ACTIVE">ACTIVE</option>
-                                        <option value="DELETED">DELETED</option>
-                                    </select>
-                                 </td>
-                            
-                            </tbody>
+
+                            <% restaurants_data.map(function(value, key) { %>
+                                <tbody style="background: white; color: black;">
+                                    <td>
+                                        <%= key + 1 %>
+                                    </td>
+                                    <td>
+                                        <%= value.mb_nick %>
+                                    </td>
+                                    <td>
+                                        <%= value.mb_phone %> 
+                                    </td>
+                                    <td style="width: 13%;">
+                                        <label class="switch">
+                                            <input type="checkbox" class="mb_top" id="<%= value._id %>"
+                                                <%=value.mb_top === 'Y' ? 'checked' : '' %>/>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </td>
+
+                                    <td style="width: 13%;">
+                                        <select class="spec_select mb_status">
+                                            <option value="ONPAUSE" <%=value.mb_status === 'ONPAUSE' ? 'selected' : '' %> >ONPAUSE</option>
+                                            <option value="ACTIVE" <%=value.mb_status === 'ACTIVE' ? 'selected' : '' %> >ACTIVE</option>
+                                            <option value="DELETED" <%=value.mb_status === 'DELETED' ? 'selected' : '' %>>DELETED</option>
+                                        </select>
+                                    </td>
+                                </tbody>
+                                <% }) %>
+
+
                         </table>
                     </div>
                 </div>

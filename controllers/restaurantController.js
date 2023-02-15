@@ -2,6 +2,7 @@ const assert = require("assert");
 const Member = require("../models/Member");
 const Product = require("../models/Product");
 const Definer = require("../lib/mistake");
+const Restaurant = require("../models/Restaurant");
 
 let restaurantController = module.exports;
 
@@ -14,7 +15,7 @@ restaurantController.home = (req, res) => {
     res.json({ state: "Failed", message: err.message });
   }
 };
-
+ 
 restaurantController.getMyRestaurantProducts = async (req, res) => {
   try {
     console.log("GET: controller/getMyRestaurantProducts");
@@ -81,7 +82,7 @@ restaurantController.loginProcess = async (req, res) => {
     const data = req.body,
       member = new Member(),
       result = await member.loginData(data); //69 line/. loginData goes to Member Js
-
+ 
     req.session.member = result;
     req.session.save(function () {
       result.mb_type === "ADMIN"
@@ -139,12 +140,16 @@ restaurantController.validateAdmin = (req, res, next) => {
   }
 };
 
-restaurantController.getAllRestaurants = (req, res) => {
+restaurantController.getAllRestaurants = async (req, res) => {
   try {
     console.log("GET controller/getAllRestaurants");
-    // todo: retrieve all restaurants for DB
 
-    res.render("all-restaurants");
+    const restaurant = new Restaurant();
+    const restaurants_data = await restaurant.getAllRestaurantsData()
+    // todo: retrieve all restaurants for DB  ==> DONE
+    console.log("restaurants_data:", restaurants_data);
+
+    res.render("all-restaurants", {restaurants_data: restaurants_data});
 
   } catch (err) {
     console.log(`ERROR: controller/getAllRestaurants, ${err.message}`);
