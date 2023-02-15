@@ -1,1 +1,68 @@
-<h1>Passed here</h1>
+<%- include('includes/header') %>
+
+
+    <link rel="stylesheet" href="/css/menu.css" type="text/css">
+
+    <body>
+        <div id="main_container">
+            <div class="group_name">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item" style="cursor: pointer">
+                        <a class="nav-link active " href="/resto">Home</a>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer">
+                        <a class="nav-link " href="/resto/all-restaurants">AllResto</a>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer">
+                        <a class="nav-link " href="/resto/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="restaurant_menu_frame">
+                <div class="restaurant_container">
+                    <div class="resto_table">
+                        <span class="new_dish_txt">
+                            List of all restaurants
+                        </span>
+
+                        <table class="table table-bordered table-hover text-light table-sm">
+                            <thread class="thread-light">
+                                <tr class="thread-light">
+                                    <th scope="col">Num</th>
+                                    <th scope="col">Restaurant name</th>
+                                    <th scope="col">Restaurant phone number</th>
+                                    <th scope="col">TOP Restaurant </th>
+                                    <th scope="col">Restaurant status </th>
+                                </tr>
+                            </thread>
+                            <tbody style="background: white; color: black;">
+                                <td> 1 </td>
+                                <td> Texas De Brazil</td>
+                                <td> 9989074158790 </td>
+                                <td style="width: 13%;"> 
+                                    <label class="switch">
+                                        <input type="checkbox" class="mb_top">
+                                        <span class="slider around"></span>
+                                    </label>
+                                </td>
+                                <td style="width: 13%;">
+                                    <select class="spec_select mb_status">
+                                        <option value="ONPAUSE">ONPAUSE</option>
+                                        <option value="ACTIVE">ACTIVE</option>
+                                        <option value="DELETED">DELETED</option>
+                                    </select>
+                                 </td>
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+
+
+    <%- include('includes/footer') %>
