@@ -47,21 +47,24 @@
                                         <%= value.mb_nick %>
                                     </td>
                                     <td>
-                                        <%= value.mb_phone %> 
+                                        <%= value.mb_phone %>
                                     </td>
                                     <td style="width: 13%;">
                                         <label class="switch">
                                             <input type="checkbox" class="mb_top" id="<%= value._id %>"
-                                                <%=value.mb_top === 'Y' ? 'checked' : '' %>/>
+                                                <%=value.mb_top==='Y' ? 'checked' : '' %>/>
                                             <span class="slider round"></span>
                                         </label>
                                     </td>
 
                                     <td style="width: 13%;">
                                         <select class="spec_select mb_status">
-                                            <option value="ONPAUSE" <%=value.mb_status === 'ONPAUSE' ? 'selected' : '' %> >ONPAUSE</option>
-                                            <option value="ACTIVE" <%=value.mb_status === 'ACTIVE' ? 'selected' : '' %> >ACTIVE</option>
-                                            <option value="DELETED" <%=value.mb_status === 'DELETED' ? 'selected' : '' %>>DELETED</option>
+                                            <option value="ONPAUSE" <%=value.mb_status==='ONPAUSE' ? 'selected' : '' %>
+                                                >ONPAUSE</option>
+                                            <option value="ACTIVE" <%=value.mb_status==='ACTIVE' ? 'selected' : '' %>
+                                                >ACTIVE</option>
+                                            <option value="DELETED" <%=value.mb_status==='DELETED' ? 'selected' : '' %>
+                                                >DELETED</option>
                                         </select>
                                     </td>
                                 </tbody>
@@ -73,6 +76,28 @@
                 </div>
             </div>
         </div>
+
+        <script>
+
+            // document.getReady
+            $(function () {
+                // manipulate top restaurant
+                $(".mb_top").on('change', function (e) {
+                    const id = e.target.id;
+                    const mb_top = e.target.checked ? 'Y' : 'N';
+
+                    axios.post('/resto/all-restaurant/edit', { id: id, mb_top: mb_top }).then((response) => {
+                        const result = response.data; //data from server   res cont 166
+                        if(result.state === 'Success') alert('Successfully updated!');
+                        else alert(result.message)
+                    }) 
+                        .catch((err) => console.log(err))
+                });
+            });
+
+        </script>
+
+
     </body>
 
 

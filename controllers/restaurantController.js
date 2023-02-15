@@ -91,7 +91,7 @@ restaurantController.loginProcess = async (req, res) => {
     });
   } catch (err) {
     console.log(`ERROR: controller/loginProcess, ${err.message}`);
-    res.json({ state: "failed", message: err.message });
+    res.json({ state: "Failed", message: err.message });
   }
 };
 
@@ -104,7 +104,7 @@ restaurantController.logout = (req, res) => {
     });
   } catch (err) {
     console.log(`ERROR: controller/logoutProcess, ${err.message}`);
-    res.json({ state: "failed", message: err.message });
+    res.json({ state: "Failed", message: err.message });
   }
 };
 
@@ -121,7 +121,7 @@ restaurantController.validateAuthRestaurant = (req, res, next) => {
 
 restaurantController.checkSessions = (req, res) => {
   if (req.session?.member) {
-    res.json({ state: "Succeeded", data: req.session.member });
+    res.json({ state: "Success", data: req.session.member });
   } else {
     res.json({ state: "Failed", message: "You are not authenticated" });
   }
@@ -153,9 +153,22 @@ restaurantController.getAllRestaurants = async (req, res) => {
 
   } catch (err) {
     console.log(`ERROR: controller/getAllRestaurants, ${err.message}`);
-    res.json({ state: "failed", message: err.message });
+    res.json({ state: "Failed", message: err.message });
   }
 };
 
+restaurantController.updateRestaurantByAdmin = async (req, res) => {
+  try {
+    console.log("GET controller/updateRestaurantByAdmin");
+
+    const restaurant = new Restaurant();
+    const result = await restaurant.updateRestaurantByAdminData(req.body);
+    await res.json({state: "Success", data: result})  //from 165
+  } catch (err) {
+    console.log(`ERROR: controller/updateRestaurantByAdmin, ${err.message}`);
+    res.json({ state: "Failed", message: err.message });
+  }
+}
 // get fetches data
 // post submits data
+  
