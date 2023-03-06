@@ -5,6 +5,7 @@ const express = require("express");
 const app = express();
 const router = require("./router.js");
 const router_bssr = require("./router_bssr.js");
+const cookieParser =require("cookie-parser")
 
 let session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
@@ -17,6 +18,7 @@ const store = new MongoDBStore({
 app.use(express.static("public")); // what public sees
 app.use(express.json()); // json object form(web server format)
 app.use(express.urlencoded({ extended: true })); // recieves html requests// if don't write, express will ignore html form requests
+app.use(cookieParser())
 
 // 2: Session code
 app.use(
