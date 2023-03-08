@@ -9,19 +9,55 @@ class Product {
     this.productModel = ProductModel;
   }
 
-async getAllProductsDataResto(member) {
-  try{
-    member._id = shapeIntoMongooseObjectId(member._id);
-    const result = await this.productModel.find({
-      restaurant_mb_id: member._id  // find the products related to the member._id
-    })
-    assert.ok(result, Definer.general_err1);
-    console.log('result:', result ) //empty
-    return result;  // shows 16 comment
-  } catch(err){
-    throw(err);
+  async getAllProductsData(member, data) {
+    try {
+      const auth_mb_id = shapeIntoMongooseObjectId(member?._id);
+
+      let match = { product_status: "PROCESS" };
+      if (data.restaurant_mb_id) {
+        match["restaurant_mb_id"] = shapeIntoMongooseObjectId(
+          data.restaurant_mb_id
+        );
+        match["product_collection"] = data.product_collection;
+      }
+
+      const sort =
+        data.order === "product_price"
+          ? { [data.order]: 1 }
+          : { [data.order]: -1 }; //dynamic value
+
+      const result = await this.productModel
+        .aggregate([
+          { $match: match },
+          { $sort: sort },
+          { $skip: (data.page * 1 - 1) * data.limit },
+          { $limit: data.limit * 1 },
+          // todo: check auth member product likes
+        ])
+        .exec();
+
+      // console.log("result:", result);
+
+      assert.ok(result, Definer.general_err1);
+      return result;
+    } catch (err) {
+      throw err;
+    }
   }
-}
+
+  async getAllProductsDataResto(member) {
+    try {
+      member._id = shapeIntoMongooseObjectId(member._id);
+      const result = await this.productModel.find({
+        restaurant_mb_id: member._id, // find the products related to the member._id
+      });
+      assert.ok(result, Definer.general_err1);
+      console.log("result:", result); //empty
+      return result; // shows 16 comment
+    } catch (err) {
+      throw err;
+    }
+  }
 
   async addNewProductData(data, member) {
     try {
@@ -46,7 +82,7 @@ async getAllProductsDataResto(member) {
         .findOneAndUpdate({ _id: id, restaurant_mb_id: mb_id }, updated_data, {
           runValidators: true,
           lean: true,
-          returnDocument: "after",  // shows new data
+          returnDocument: "after", // shows new data
           // "before" shows the old data // but db changes
         })
         .exec();

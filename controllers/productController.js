@@ -6,12 +6,22 @@ let productController = module.exports;
 // requests go to router_BSSR
 productController.getAllProducts = async (req, res) => {
   try {
-    console.log("GET: cont/getAllProducts");
+    console.log("POST cont/getAllProducts");
+    const product = new Product();
+    const results = await product.getAllProductsData(req.member, req.body);
+    await res.json({ state: "Succeeded!", data: results });
   } catch (err) {
-    console.log(`ERROR cont/getAllProducts, ${err.message}`);
-    res.json({ state: "Failed", message: err.message });
+    console.log(`ERROR, cont/getAllProducts, ${err.message}`);
+    res.json({ state: "failed", message: err.message });
   }
 };
+
+
+/************************************
+ *       BSSR RELATED METHODS       *
+ ***********************************/
+
+
 
 productController.addNewProduct = async (req, res) => {
   try {

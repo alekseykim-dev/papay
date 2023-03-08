@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router(); // why?
 const memberController = require("./controllers/memberController");
+const productController = require("./controllers/productController");
 
 /*********************************
  *         REST API REACT        *
  *********************************/
 
-// memberga dahldor // faqat get request in url
+// member related routers // faqat get request in url
 // router.get('/', memberController.home);
 router.post("/signup", memberController.signup);
 router.post("/login", memberController.login);
@@ -18,14 +19,11 @@ router.get("/member/:id", memberController.retrieveAuthMember,memberController.g
 //     res.send('Home sahifasidasiz')  // controller
 // }
 
-// other routers
-router.get("/menu", (req, res) => {
-  res.send("Menu sahifadasiz");
-});
 
-router.get("/community", (req, res) => {
-  res.send("Jamiyat sahifadasiz");
-});
+
+// Product related routers
+router.post( "/products", memberController.retrieveAuthMember, productController.getAllProducts
+);
 
 module.exports = router;
 
