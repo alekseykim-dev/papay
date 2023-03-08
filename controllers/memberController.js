@@ -15,7 +15,7 @@ memberController.signup = async (req, res) => {
     console.log("POST: cont/signup");
     const data = req.body,
       member = new Member(),
-      new_member = await member.signupData(data);
+      new_member = member.signupData(data);
 
 
     const token = memberController.createToken(new_member);
@@ -56,7 +56,8 @@ memberController.login = async (req, res) => {
 
 memberController.logout = (req, res) => {
   console.log("GET cont/logout");
-  res.send("logout sahifadasiz");
+  res.cookie('access_token', null, { maxAge: 0, httpOnly: true })
+  res.json({ state: "Succeeded", data: "logged out successfully!" });
 };
 
 memberController.createToken = (result) => {
@@ -95,6 +96,33 @@ memberController.checkMyAuthentication = (req, res) => {
 
   } catch (err) {
     throw err;
+  }
+}
+
+memberController.getChosenMember = async (req, res) => {
+  try {
+    console.log("GET cont/getChosenMember");
+    const id = req.params.id;
+
+    const member = new Member();
+    const result = await member.getChosenMemberData(req.member, id);
+    res.json({ state: "Succeeded", data: result });
+
+    
+  } catch (err) {
+      console.log(`ERROR cont/getChosenMember, ${err.message}`);
+      res.json({ state: "Failed", message: err.message });
+  }
+}
+
+memberController.retrieveAuthMember = (req, res, next) => {
+  try {
+    const token = req.cookies['access_token'];
+    req.member = token ? jwt.verify(token, process.env.SECRET_TOKEN) : null;
+    next()
+  } catch (err) {
+    console.log(`ERROR cont/retrieveAuthMember, ${err.message}`);
+    next()
   }
 }
 // get fetches data
