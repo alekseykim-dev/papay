@@ -50,21 +50,26 @@ class Member {
       throw err;
     }
   }
-                         // who?  whose?
+  // who?  whose?
   async getChosenMemberData(member, id) {
     try {
       id = shapeIntoMongooseObjectId(id);
 
-      console.log("member:", member) // if auth, shows data. if not null
+      console.log("member:", member); // if auth, shows data. if not null
 
-      if (member) { // not available for non-users
+      if (member) {
+        // not available for non-users
         // +1 for each view if not seen before
-        await this.viewChosenItemByMember( member, id, 'member')
-                     // who called the method, id, what type of item am i looking at
+        await this.viewChosenItemByMember(member, id, "member");
+        // who called the method, id, what type of item am i looking at
       }
 
       const result = await this.memberModel
-        .aggregate([{ $match: { _id: id, mb_status: "ACTIVE" } },{$unset: "mb_password"}])
+        .aggregate([
+          { $match: { _id: id, mb_status: "ACTIVE" } },
+          { $unset: "mb_password" },
+          // todo: check auth member likes chosen member
+        ])
         .exec();
 
       assert.ok(result, Definer.general_err2);
@@ -74,28 +79,27 @@ class Member {
     }
   }
 
- async viewChosenItemByMember(member, view_ref_id, group_type) {
-   try {
-     view_ref_id = shapeIntoMongooseObjectId(view_ref_id);
-     const mb_id = shapeIntoMongooseObjectId(member._id);
+  async viewChosenItemByMember(member, view_ref_id, group_type) {
+    try {
+      view_ref_id = shapeIntoMongooseObjectId(view_ref_id);
+      const mb_id = shapeIntoMongooseObjectId(member._id);// who is watching
 
-     const view = new View(mb_id);
-     // validation needed for target checking(product or member is active or not)
-     const isValid = await view.validateChosenTarget(view_ref_id, group_type);
-     assert.ok(isValid, Definer.general_err2);
+      const view = new View(mb_id); //View.js
+      // validation needed for target checking(product or member is active or not)
+      const isValid = await view.validateChosenTarget(view_ref_id, group_type);
+      assert.ok(isValid, Definer.general_err2);
 
-     // logged in saw seen target before or not  1 = 1
-     const doesExist = await view.checkViewExistence(view_ref_id);
-     console.log("doesExist:", doesExist);
+      // logged in has seen target before or not  1 = 1
+      const doesExist = await view.checkViewExistence(view_ref_id);
+      console.log("doesExist:", doesExist);
 
-
-     if (!doesExist) {
-       const result = await view.insertMemberView(view_ref_id, group_type);
-       assert.ok(result, Definer.general_err1);
-     }
-     return true;
-   } catch (err) {
-     throw err
+      if (!doesExist) {
+        const result = await view.insertMemberView(view_ref_id, group_type);
+        assert.ok(result, Definer.general_err1);
+      }
+      return true;
+    } catch (err) {
+      throw err;
     }
   }
 }
