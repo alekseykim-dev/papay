@@ -78,7 +78,7 @@ class Member {
       throw err;
     }
   }
-
+                                        // product/ community/ member
   async viewChosenItemByMember(member, view_ref_id, group_type) {
     try {
       view_ref_id = shapeIntoMongooseObjectId(view_ref_id);

@@ -2,6 +2,7 @@ const assert = require("assert");
 const MemberModel = require("../schema/member.model");
 const Definer = require("../lib/mistake");
 const { shapeIntoMongooseObjectId } = require("../lib/config");
+const Member = require("./Member");
 
 class Restaurant {
   constructor() {
@@ -26,23 +27,46 @@ class Restaurant {
           aggregationQuery.push({ $match: match });
           aggregationQuery.push({ $sample: { size: data.limit } });
           break;
-        default:
-          aggregationQuery.push({ $match: match }); // NOT ARRAY, it can contain any data
-          const sort = { [data.order]: -1 };  // descending
+        default: // NOT ARRAY, it can contain any data
+          // descending
+          aggregationQuery.push({ $match: match });
+          const sort = { [data.order]: -1 };
           aggregationQuery.push({ $sort: sort });
           break;
       }
 
       aggregationQuery.push({ $skip: (data.page - 1) * data.limit });
-      aggregationQuery.push({ $limit: data.limit });  // max = 8
-      // todo:check auth member liked the chosen target
+      aggregationQuery.push({ $limit: data.limit }); // max = 8
+      // TODO: check auth member liked the chosen target
 
       const result = await this.memberModel.aggregate(aggregationQuery).exec();
       assert.ok(result, Definer.general_err1);
       return result;
     } catch (err) {
       throw err;
-    } 
+    }
+  }
+
+  async getChosenRestaurantData(member, id) {
+    try {
+      id = shapeIntoMongooseObjectId(id);
+
+      if (member) {
+        const member_obj = new Member();
+        await member_obj.viewChosenItemByMember(member, id, "member");
+      }
+
+      const result = await this.memberModel
+        .findOne({
+          _id: id,
+          mb_status: "ACTIVE",
+        })
+        .exec();
+      assert.ok(result, Definer.general_err2);
+      return result;
+    } catch (err) {
+      throw err;
+    }
   }
 
   async getAllRestaurantsData() {
