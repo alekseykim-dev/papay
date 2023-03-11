@@ -24,7 +24,7 @@ memberController.signup = async (req, res) => {
       httpOnly: true,
     });
       
-    res.json({ state: "Succeeded", data: new_member });
+    res.json({ state: "Success", data: new_member });
   } catch (err) {
     console.log(`ERROR cont/signup, ${err.message}`);
     res.json({ state: "Failed", message: err.message });
@@ -47,7 +47,7 @@ memberController.login = async (req, res) => {
       httpOnly: true,
     });
 
-    res.json({ state: "Succeeded", data: result });
+    res.json({ state: "Success", data: result });
   } catch (err) {
     console.log(`ERROR cont/signup, ${err.message}`);
     res.json({ state: "Failed", message: err.message });
@@ -57,7 +57,7 @@ memberController.login = async (req, res) => {
 memberController.logout = (req, res) => {
   console.log("GET cont/logout");
   res.cookie('access_token', null, { maxAge: 0, httpOnly: true })
-  res.json({ state: "Succeeded", data: "logged out successfully!" });
+  res.json({ state: "Success", data: "logged out successfully!" });
 };
 
 memberController.createToken = (result) => {
@@ -91,7 +91,7 @@ memberController.checkMyAuthentication = (req, res) => {
 
 
 
-    res.json({ state: "Succeeded", data: member });
+    res.json({ state: "Success", data: member });
 
 
   } catch (err) {
@@ -106,7 +106,7 @@ memberController.getChosenMember = async (req, res) => {
 
     const member = new Member();
     const result = await member.getChosenMemberData(req.member, id);
-    res.json({ state: "Succeeded", data: result });
+    res.json({ state: "Success", data: result });
 
     
   } catch (err) {
@@ -115,7 +115,7 @@ memberController.getChosenMember = async (req, res) => {
   }
 }
 
-memberController.retrieveAuthMember = (req, res, next) => {
+memberController.retrieveAuthMember = (req, res, next) => { //checks if user is member
   try {
     const token = req.cookies['access_token'];
     req.member = token ? jwt.verify(token, process.env.SECRET_TOKEN) : null;

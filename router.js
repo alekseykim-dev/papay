@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router(); // why?
 const memberController = require("./controllers/memberController");
 const productController = require("./controllers/productController");
-
+const restaurantController = require("./controllers/restaurantController");
 /*********************************
  *         REST API REACT        *
  *********************************/
@@ -10,9 +10,17 @@ const productController = require("./controllers/productController");
 // member related routers // faqat get request in url
 // router.get('/', memberController.home);
 router.post("/signup", memberController.signup);
+
+
 router.post("/login", memberController.login);
+
+
 router.get("/logout", memberController.logout);
+
+
 router.get("/check-me", memberController.checkMyAuthentication);
+
+
 router.get("/member/:id", memberController.retrieveAuthMember,memberController.getChosenMember)
 
 // function(req, res) {
@@ -27,6 +35,22 @@ router.post( "/products", memberController.retrieveAuthMember, productController
 
 
 router.get("/products/:id", memberController.retrieveAuthMember,productController.getChosenProduct);
+
+router.get(
+  "/products/:id",
+  memberController.retrieveAuthMember,
+  productController.getChosenProduct
+);
+
+
+
+
+// Restaurant related routers
+router.get(
+  "/restaurants",
+  memberController.retrieveAuthMember, //what restaurant am I like info
+  restaurantController.getRestaurants
+);
 
 module.exports = router;
 

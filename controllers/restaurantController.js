@@ -6,6 +6,25 @@ const Restaurant = require("../models/Restaurant");
 
 let restaurantController = module.exports;
 
+restaurantController.getRestaurants = async (req, res) => {
+  try {
+    console.log("GET: cont/getRestaurants");
+    const data = req.query,
+      restaurant = new Restaurant(),
+      result = await restaurant.getRestaurantsData(req.member, data);  
+
+    res.json({ state: "Success", data: result });
+  } catch (err) {
+    console.log(`ERROR, cont/getRestaurants, ${err.message}`);
+    res.json({ state: "fail", message: err.message });
+  }
+};
+
+/************************************
+ *       BSSR RELATED METHODS       *
+ ***********************************/
+
+
 restaurantController.home = (req, res) => {
   try {
     console.log("GET: controller/home");
@@ -59,7 +78,7 @@ restaurantController.signupProcess = async (req, res) => {
 
     // SESSION AUTH
 
-    // res.json({ state: "Succeeded", data: new_member }); NOT NEEDED
+    // res.json({ state: "Success", data: new_member }); NOT NEEDED
   } catch (err) {
     console.log(`ERROR controller/signupProcess, ${err.message}`);
     res.json({ state: "Failed", message: err.message });
@@ -163,7 +182,7 @@ restaurantController.updateRestaurantByAdmin = async (req, res) => {
 
     const restaurant = new Restaurant();
     const result = await restaurant.updateRestaurantByAdminData(req.body);
-    await res.json({state: "Success", data: result})  //from 165
+    await res.json({ state: "Success", data: result });  //from 165
   } catch (err) {
     console.log(`ERROR: controller/updateRestaurantByAdmin, ${err.message}`);
     res.json({ state: "Failed", message: err.message });
