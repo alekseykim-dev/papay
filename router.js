@@ -3,6 +3,8 @@ const router = express.Router(); // why?
 const memberController = require("./controllers/memberController");
 const productController = require("./controllers/productController");
 const restaurantController = require("./controllers/restaurantController");
+const orderController = require("./controllers/orderController");
+
 /*********************************
  *         REST API REACT        *
  *********************************/
@@ -56,6 +58,15 @@ router.get("/restaurants/:id", memberController.retrieveAuthMember, restaurantCo
 )
 
 
+
+
+
+// Order related routers
+router.post(
+  "/orders/create",
+  memberController.retrieveAuthMember,
+  orderController.createOrder
+);
 
 
 
