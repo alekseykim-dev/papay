@@ -18,6 +18,3 @@ orderController.createOrder = async (req, res) => {
     res.json({ state: "fail", message: err.message });
   }
 };
-
-// get fetches data
-// post submits data

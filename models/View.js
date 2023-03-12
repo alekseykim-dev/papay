@@ -22,7 +22,7 @@ class View {
         
         case "product":
           result = await this.productModel
-            .findById({ _id: _id, mb_status: "PROCESS" })
+            .findById({ _id: _id, product_status: "PROCESS" })
             .exec();
           break;
       }
