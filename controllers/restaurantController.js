@@ -16,7 +16,7 @@ restaurantController.getRestaurants = async (req, res) => {
     res.json({ state: "Success", data: result });
   } catch (err) {
     console.log(`ERROR, cont/getRestaurants, ${err.message}`);
-    res.json({ state: "fail", message: err.message });
+    res.json({ state: "faiFailedl", message: err.message });
   }
 };
 
@@ -31,7 +31,7 @@ restaurantController.getChosenRestaurant = async (req, res) => {
 
   } catch (err) {
     console.log(`ERROR, cont/getChosenRestaurant, ${err.message}`);
-    res.json({ state: "fail", message: err.message });
+    res.json({ state: "Failed", message: err.message });
   }
 };
 

@@ -4,7 +4,6 @@ const OrderItemModel = require("../schema/order_item.model");
 const Definer = require("../lib/mistake");
 const assert = require("assert");
 
-
 class Order {
   constructor() {
     this.orderModel = OrderModel;
@@ -75,7 +74,7 @@ class Order {
       throw err;
     }
   }
-
+  2;
   async saveOrderItemsData(item, order_id) {
     try {
       order_id = shapeIntoMongooseObjectId(order_id);
@@ -95,6 +94,42 @@ class Order {
       throw new Error(Definer.order_err2);
     }
   }
+
+  async getMyOrdersData(member, query) {
+    try {
+      const mb_id = shapeIntoMongooseObjectId(member._id),
+        order_status = query.status.toUpperCase(),
+        matches = { mb_id: mb_id, order_status: order_status };
+
+      const result = await this.orderModel
+        .aggregate([
+          { $match: matches },
+          { $sort: { createdAt: -1 } },
+          {
+          $lookup: {
+            from: 'orderitems',
+            localField: '_id',
+              foreignField: 'order_id',
+            as: 'order_items',
+            },
+          },
+          {
+            $lookup: {
+              from: 'products',
+              localField: 'order_items.product_id',
+              foreignField: "_id", // from order_items
+              as: 'product_data'
+            },
+          }
+        ])
+        .exec();
+      
+      console.log("result:::", result)
+      return result
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
-module.exports = Order; 
+module.exports = Order;
